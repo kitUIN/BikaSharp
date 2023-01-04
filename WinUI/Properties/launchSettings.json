@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "BikaSharp.Windows": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

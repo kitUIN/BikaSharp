@@ -1,0 +1,14 @@
+{
+  "solution": {
+    "path": "BikaSharp.sln",
+    "projects": [
+		"BikaSharp.Shared\\BikaSharp.Shared.shproj",
+
+		"BikaSharp.Mobile\\BikaSharp.Mobile.csproj",
+
+		"BikaSharp.Wasm\\BikaSharp.Wasm.csproj",
+
+		"BikaSharp.Skia.Gtk\\BikaSharp.Skia.Gtk.csproj",
+    ]
+  }
+}
