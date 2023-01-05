@@ -12,7 +12,11 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-
+using Uno.Extensions;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Windows.Storage;
+using System.Diagnostics;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BikaSharp
@@ -25,6 +29,16 @@ namespace BikaSharp
         public MainPage()
         {
             this.InitializeComponent();
+            this.Logger();
+            Log.Information("Hello, world!ssss");
+#if WINDOWS
+            Log.Information("i think is ok");
+            Debug.WriteLine("this ok");
+#endif
+
         }
+
+
     }
+
 }

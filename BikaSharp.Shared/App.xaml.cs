@@ -6,6 +6,15 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
+using Microsoft.Extensions.Hosting;
+using Uno.Extensions.Hosting;
+
+using Uno.Extensions;
+using Serilog;
+using Windows.Storage;
+using System.IO;
+using System.Diagnostics;
+
 namespace BikaSharp
 {
     /// <summary>
@@ -14,7 +23,7 @@ namespace BikaSharp
     public sealed partial class App : Application
     {
         private Window _window;
-
+        private IHost Host { get; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -22,6 +31,14 @@ namespace BikaSharp
         public App()
         {
             InitializeLogging();
+
+            var logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "mylog.txt");
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+                .CreateLogger();
 
             this.InitializeComponent();
 
@@ -107,9 +124,12 @@ namespace BikaSharp
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+            // stop logging and add to log file
+            Log.CloseAndFlush();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
 
         /// <summary>
         /// Configures global Uno Platform logging
@@ -119,7 +139,7 @@ namespace BikaSharp
 #if DEBUG
             // Logging is disabled by default for release builds, as it incurs a significant
             // initialization cost from Microsoft.Extensions.Logging setup. If startup performance
-            // is a concern for your application, keep this disabled. If you're running on web or 
+            // is a concern for your application, keep this disabled. If you're running on web or
             // desktop targets, you can use url or command line parameters to enable it.
             //
             // For more performance documentation: https://platform.uno/docs/articles/Uno-UI-Performance.html
@@ -180,4 +200,43 @@ namespace BikaSharp
 #endif
     }
 }
+    /// <summary>
+    /// this is a Extansion to add a logger in Page
+    /// that you can use `this.LogDebug("message")` in class Page
+    /// </summary>
+    public static class LoggerExtansion
+    {
+        public static void UwpLog(string message)
+        {
+#if WINDOWS
+            Debug.WriteLine(message);
+#endif
+        }
+        public static void LogDebug(this Page page,string message)
+        {
+            Log.Debug(message);
+            UwpLog(message);
+        }
+        public static void LogInfo(this Page page, string message)
+        {
+            Log.Information(message);
+            UwpLog(message);
+        }
+        public static void LogWarn(this Page page, string message)
+        {
+            Log.Warning(message);
+            UwpLog(message);
+        }
+        public static void LogError(this Page page, string message)
+        {
+            Log.Error(message);
+            UwpLog(message);
+        }
+        public static void LogFatal(this Page page, string message)
+        {
+            Log.Fatal(message);
+            UwpLog(message);
+        }
+    }
+
 }
