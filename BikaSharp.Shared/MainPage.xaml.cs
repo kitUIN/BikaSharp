@@ -17,7 +17,8 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Windows.Storage;
 using System.Diagnostics;
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using muxc = Microsoft.UI.Xaml.Controls;
+using Windows.Devices.Enumeration;
 
 namespace BikaSharp
 {
@@ -29,15 +30,27 @@ namespace BikaSharp
         public MainPage()
         {
             this.InitializeComponent();
-            this.Logger();
-            Log.Information("Hello, world!ssss");
-#if WINDOWS
-            Log.Information("i think is ok");
-            Debug.WriteLine("this ok");
-#endif
-
         }
 
+        
+        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
+        {
+            var newTab = new muxc.TabViewItem();
+            newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Document };
+            newTab.Header = "New Document";
+
+            // The Content of a TabViewItem is often a frame which hosts a page.
+            Frame frame = new Frame();
+            newTab.Content = frame;
+
+            sender.TabItems.Add(newTab);
+        }
+
+        // Remove the requested tab from the TabView
+        private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
+        {
+            sender.TabItems.Remove(args.Tab);
+        }
 
     }
 

@@ -206,9 +206,9 @@ namespace BikaSharp
     /// </summary>
     public static class LoggerExtansion
     {
-        public static void UwpLog(string message)
+        private static void UwpLog(string message)
         {
-#if WINDOWS
+#if NETFX_CORE
             Debug.WriteLine(message);
 #endif
         }
