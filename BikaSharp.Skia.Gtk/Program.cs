@@ -15,6 +15,8 @@ namespace BikaSharp.Skia.Gtk
 			};
 
 			var host = new GtkHost(() => new App());
+            // Must otherwise have some rendering errors like there is no button background
+            host.RenderSurfaceType = RenderSurfaceType.Software;
 
 			host.Run();
 		}

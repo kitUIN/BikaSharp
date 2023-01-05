@@ -14,6 +14,9 @@ using Serilog;
 using Windows.Storage;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
+using bikabika.API.Block;
 
 namespace BikaSharp
 {
@@ -23,7 +26,7 @@ namespace BikaSharp
     public sealed partial class App : Application
     {
         private Window _window;
-        private IHost Host { get; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -208,7 +211,7 @@ namespace BikaSharp
     {
         private static void UwpLog(string message)
         {
-#if NETFX_CORE
+#if WINDOWS
             Debug.WriteLine(message);
 #endif
         }
