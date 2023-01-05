@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <Button Content="hello" />
         <muxc:TabView AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" />
     </Grid>
 </Page>
