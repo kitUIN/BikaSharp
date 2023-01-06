@@ -15,13 +15,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)API\Block\Blocks.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)API\Data\Datas.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)API\Page\Pages.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)API\Response\Responses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\WebServices\BikaApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\WebServices\WebApiBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalUsings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -33,10 +33,45 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Comic.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\ComicInfo.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Comment.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Creator.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Ep.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Episode.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Picture.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Thumb.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Block\User.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\CategoryData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\ComicInfoData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\ComicsData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\CommentsData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\EpisodeData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\KeywordsData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\PictureData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\SignInData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Data\UserData.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Page\ComicsPage.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Page\CommentsPage.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Page\EpisodePage.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Page\PicturePage.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\CategoriesResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\ComicInfoResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\ComicsResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\CommentsResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\EpisodeResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\KeywordsResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\PictureResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\ProfileResponse.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\BikaResponseBase.cs" />
+    <None Include="$(MSBuildThisFileDirectory)API\DataModels\Response\SignInResponse.cs" />
     <None Include="$(MSBuildThisFileDirectory)Assets\SharedAssets.md" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)API\ViewModels\" />
   </ItemGroup>
   <Import Project="BikaSharp.Shared.globs.props" Condition="'$(IsCodeSharingProject)'!='true'" />
 </Project>

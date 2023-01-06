@@ -19,7 +19,6 @@ using Windows.Storage;
 using System.Diagnostics;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.Devices.Enumeration;
-using bikabika.API.Response;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
@@ -534,7 +533,7 @@ namespace BikaSharp
         ]
     }
 }";
-            CategoriesResponse cate = JsonSerializer.Deserialize(myJsonResponse, CategoriesResponseContext.Default.CategoriesResponse);
+            CategoriesResponse cate = JsonSerializer.Deserialize<CategoriesResponse>(myJsonResponse);
 
             this.LogDebug(cate.data.categories[0].title);
 
