@@ -10,3 +10,5 @@ global using System.Linq;
 global using System.Net;
 global using System.Security.Cryptography;
 global using BikaSharp.API.DataModels;
+global using BikaSharp.API.WebServices;
+

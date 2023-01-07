@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class CommentsPage
+    public class CommentsPage
     {
         public List<Comment> docs { get; set; }
         public int total { get; set; }

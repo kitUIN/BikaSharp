@@ -1,6 +1,6 @@
 ﻿namespace BikaSharp.API.DataModels
 {
-    internal class KeywordsData
+    public class KeywordsData
     {
         public List<string> keywords { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class ComicInfo
+    public class ComicInfo
     {
         public string _id { get; set; }
         public Creator _creator { get; set; }
@@ -29,10 +29,6 @@ namespace BikaSharp.API.DataModels
         public bool isLiked { get; set; }
     }
 
-    [JsonSourceGenerationOptions(WriteIndented = true)]
-    [JsonSerializable(typeof(ComicInfo))]
-    internal partial class ComicInfoContext : JsonSerializerContext
-    { }
 
 
 

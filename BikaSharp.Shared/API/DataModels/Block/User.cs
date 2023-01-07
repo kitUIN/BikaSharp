@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class User
+    public class User
     {
         public string _id { get; set; }
         public DateTime birthday { get; set; }

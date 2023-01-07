@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class Creator
+    public class Creator
     {
         public string _id { get; set; }
         public string gender { get; set; }

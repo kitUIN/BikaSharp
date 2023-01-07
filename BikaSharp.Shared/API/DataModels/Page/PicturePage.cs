@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class PicturePage
+    public class PicturePage
     {
         public List<Picture> docs { get; set; }
         public int total { get; set; }

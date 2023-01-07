@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class Comment
+    public class Comment
     {
         public string _id { get; set; }
         public string content { get; set; }

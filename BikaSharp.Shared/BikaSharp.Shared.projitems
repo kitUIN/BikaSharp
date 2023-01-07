@@ -16,17 +16,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Category.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)API\WebServices\BikaApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\Utils\Gender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\Utils\ImageQuality.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\Utils\SortRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\WebServices\BikaClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)API\WebServices\WebApiBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)GlobalUsings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HomePage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

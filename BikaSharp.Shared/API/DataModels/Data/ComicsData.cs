@@ -1,6 +1,6 @@
 ﻿namespace BikaSharp.API.DataModels
 {
-    internal class ComicsData
+    public class ComicsData
     {
         public ComicsPage comics { get; set; }
     }

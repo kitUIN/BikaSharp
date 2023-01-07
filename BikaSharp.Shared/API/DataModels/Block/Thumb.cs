@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class Thumb
+    public class Thumb
     {
         public string originalName { get; set; }
         public string path { get; set; }

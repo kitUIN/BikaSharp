@@ -3,13 +3,17 @@ namespace BikaSharp.API.WebServices
 {
     public abstract class WebApiBase
     {
+
         protected static HttpClient _client;
+
+        protected static WebProxy _proxy;
         protected static string _token = string.Empty;
         protected static string _appChannel = "1";
-        protected static string _appVersion = "2.2.1.2.3.4";
-        protected static readonly string APIKEY = "C69BAF41DA5ABD1FFEDC6D2FEA56B";
-        protected static readonly string SIGNKEY = "~d}$Q7$eIni=V)9\\RK/P.RM4;9[7|@/CA}b~OW!3?EV`:<>M7pddUBL5n|0/*Cn";
-        protected static readonly string NONCE = "b1ab87b4800d4d4590a11701b8551afa";
+        protected static readonly string BaseUrl = "https://picaapi.picacomic.com/";
+        protected static readonly string _appVersion = "2.2.1.2.3.4";
+        protected static readonly string ApiKey = "C69BAF41DA5ABD1FFEDC6D2FEA56B";
+        protected static readonly string SignKey = "~d}$Q7$eIni=V)9\\RK/P.RM4;9[7|@/CA}b~OW!3?EV`:<>M7pddUBL5n|0/*Cn";
+        protected static readonly string _nonce = Guid.NewGuid().ToString().Replace("-", string.Empty);
         static WebApiBase()
         {
 #if __IOS__
@@ -23,17 +27,6 @@ namespace BikaSharp.API.WebServices
         }
 
         /// <summary>
-        /// build Secret text
-        /// </summary>
-        /// <param name="api">api name</param>
-        /// <param name="t">timestamp</param>
-        /// <param name="method">http method</param>
-        /// <returns></returns>
-        private static string SecretRaw(string api, string t, string method)
-        {
-            return api + t + NONCE + method + APIKEY;
-        }
-        /// <summary>
         /// bika api encrypt
         /// </summary>
         /// <param name="api">api name</param>
@@ -42,7 +35,7 @@ namespace BikaSharp.API.WebServices
         /// <returns></returns>
         private static string BikaEncryption(string api, string t, string method)
         {
-            return HmacSHA256(SecretRaw(api, t, method), SIGNKEY);
+            return HmacSHA256(api + t + _nonce + method + ApiKey, SignKey);
         }
         /// <summary>
         /// get bika api header
@@ -55,13 +48,13 @@ namespace BikaSharp.API.WebServices
         {
             var header = new Dictionary<string, string> {
                     {"image-quality", "original"},
-                    {"api-key", APIKEY },
+                    {"api-key", ApiKey },
                     {"accept", "application/vnd.picacomic.com.v1+json" },
                     {"app-channel", _appChannel},
                     {"time", t},
                     {"signature",  "encrypt"},
                     {"app-version", _appVersion},
-                    {"nonce", NONCE},
+                    {"nonce", _nonce},
                     {"app-uuid", "defaultUuid"},
                     {"app-platform", "android"},
                     {"app-build-version", "45"},
@@ -114,7 +107,7 @@ namespace BikaSharp.API.WebServices
             return hexString;
         }
 
-        protected HttpRequestMessage CreateRequestMessage(HttpMethod method, string url,string api)
+        protected static HttpRequestMessage CreateRequestMessage(HttpMethod method, string url,string api)
         {
             var httpRequestMessage = new HttpRequestMessage(method, url);
             foreach (var header in BikaHeader(api, DateTime.Now.ToString(), method.ToString()))
@@ -127,54 +120,57 @@ namespace BikaSharp.API.WebServices
 
 
 
-        protected async Task<string> GetAsync(string url, string api)
+
+
+        protected static async Task<T> GetAsync<T>(string api)
         {
-            using (var request = CreateRequestMessage(HttpMethod.Get, url, api))
+            using (var request = CreateRequestMessage(HttpMethod.Get, BaseUrl + api, api))
             using (var response = await _client.SendAsync(request))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
                 }
 
-                return null;
+                return default;
             }
         }
 
 
-        protected async Task<string> PostAsync(string url, Dictionary<string, string> payload, string api)
+        protected static async Task<T> PostAsync<T>(string api,Dictionary<string, string> payload)
         {
-            using (var request = CreateRequestMessage(HttpMethod.Post, url, api))
+            using (var request = CreateRequestMessage(HttpMethod.Post, BaseUrl+api, api))
             {
                 request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
                 using (var response = await _client.SendAsync(request))
                 {
                     if (response.IsSuccessStatusCode)
                     {
-                        return await response.Content.ReadAsStringAsync();
+                        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
                     }
 
-                    return null;
+                    return default;
                 }
             }
         }
 
 
-        protected async Task<string> PutAsync(string url, Dictionary<string, string> payload, string api)
+        protected static async Task<T> PutAsync<T>(string api,Dictionary<string, string> payload)
         {
-            using (var request = CreateRequestMessage(HttpMethod.Put, url, api))
+            using (var request = CreateRequestMessage(HttpMethod.Put, BaseUrl + api, api))
             {
                 request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
                 using (var response = await _client.SendAsync(request))
                 {
                     if (response.IsSuccessStatusCode)
                     {
-                        return await response.Content.ReadAsStringAsync();
+                        return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync());
                     }
 
-                    return null;
+                    return default;
                 }
             }
         }
+
     }
 }

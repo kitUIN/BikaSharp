@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class Picture
+    public class Picture
     {
         public string _id { get; set; }
         public Thumb media { get; set; }

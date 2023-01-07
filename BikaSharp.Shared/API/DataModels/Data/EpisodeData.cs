@@ -1,6 +1,6 @@
 ﻿namespace BikaSharp.API.DataModels
 {
-    internal class EpisodeData
+    public class EpisodeData
     {
         public EpisodePage eps { get; set; }
     }

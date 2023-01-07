@@ -1,7 +1,7 @@
 ﻿
 namespace BikaSharp.API.DataModels
 {
-    internal class Episode
+    public class Episode
     {
         public string _id { get; set; }
         public string title { get; set; }
