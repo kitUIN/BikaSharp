@@ -13,3 +13,5 @@ global using BikaSharp.API.DataModels;
 global using BikaSharp.API.WebServices;
 global using BikaSharp.API.Exception;
 global using Serilog;
+global using System.Web;
+;

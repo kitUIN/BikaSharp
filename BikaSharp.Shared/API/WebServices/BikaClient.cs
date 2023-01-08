@@ -1,7 +1,4 @@
 ﻿
-using System.Net;
-using static System.Net.Mime.MediaTypeNames;
-using System.Web;
 
 namespace BikaSharp.API.WebServices
 {
@@ -142,8 +139,8 @@ namespace BikaSharp.API.WebServices
         /// get comics
         /// </remarks>
         /// <param name="page">index page</param>
-        /// <param name="c">comic name</param>
-        /// <param name="s"><see cref="SortRule"/>, default:<see cref="SortRule.dd"/></param>
+        /// <param name="c">comic name from <see cref="Category.title"/></param>
+        /// <param name="s">default: <see cref="SortRule.dd"/></param>
         /// <returns><see cref="ComicsPage"/></returns>
         public static async Task<ComicsPage> Comics(int page, string c, SortRule s = SortRule.dd)
         {
@@ -152,7 +149,82 @@ namespace BikaSharp.API.WebServices
             return res.data;
         }
 
+        /// <summary>
+        /// Bika API : comics/{bookId}
+        /// </summary>
+        /// <remarks>
+        /// get a comic by id
+        /// </remarks>
+        /// <param name="bookId">comic id</param>
+        /// <returns><see cref="Book"/></returns>
+        public static async Task<Book> ComicInfo(string bookId)
+        {
 
+            BikaResponse<ComicInfoData> res = await GetAsync<ComicInfoData>($"comics/{bookId}");
+            return new Book(res.data.comic);
+        }
+        /// <summary>
+        /// Bika API : comics/{bookId}/eps?page={page}
+        /// </summary>
+        /// <remarks>
+        /// get the episodes by book id
+        /// </remarks>
+        /// <param name="bookId"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static async Task<EpisodePage> Episodes(string bookId,int page)
+        {
+
+            BikaResponse<EpisodePage> res = await GetAsync<EpisodePage>($"comics/{bookId}/eps?page={page}");
+            return res.data;
+        }
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get Episodes
+        /// </summary>
+        /// <param name="page">index page</param>
+        public static async Task Episodes(this Book book, int page)
+        {
+            EpisodePage res = await Episodes(book.Id, page);
+            book.SetEpisodes(res);
+        }
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get next Episode
+        /// <remarks>
+        /// If you don't initialize <see cref="Episodes(this Book,int)"/>, it will be initialized automatically <br/>
+        /// and next will jump to the second page
+        /// </remarks>
+        /// </summary>
+        public static async Task NextEpisode(this Book book)
+        {
+            if(book.EpIndex == 0)
+            {
+                await Episodes(book, 1);
+            }
+            else if (book.EpIndex < book.EpTotal)
+            {
+                EpisodePage res = await Episodes(book.Id, book.EpIndex + 1);
+                book.SetEpisodes(res);
+            }
+        }
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get previous Episode
+        /// </summary>
+        /// <remarks>
+        /// If you don't initialize <see cref="Episodes(this Book,int)"/>, it will be initialized automatically <br/>
+        /// and will not jump to the previous page
+        /// </remarks>
+        public static async Task PreEpisode(this Book book)
+        {
+            if (book.EpIndex == 0)
+            {
+                await Episodes(book, 1);
+            }
+            if (book.EpIndex > 2)
+            {
+                EpisodePage res = await Episodes(book.Id, book.EpIndex + 1);
+                book.SetEpisodes(res);
+            }
+        }
 
 
 
