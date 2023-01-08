@@ -138,7 +138,7 @@ namespace BikaSharp.API.WebServices
         /// <remarks>
         /// get comics
         /// </remarks>
-        /// <param name="page">index page</param>
+        /// <param name="page">page index </param>
         /// <param name="c">comic name from <see cref="Category.title"/></param>
         /// <param name="s">default: <see cref="SortRule.dd"/></param>
         /// <returns><see cref="ComicsPage"/></returns>
@@ -169,8 +169,8 @@ namespace BikaSharp.API.WebServices
         /// <remarks>
         /// get the episodes by book id
         /// </remarks>
-        /// <param name="bookId"></param>
-        /// <param name="page"></param>
+        /// <param name="bookId">book id from <see cref="Comic._id"/></param>
+        /// <param name="page">page index </param>
         /// <returns></returns>
         public static async Task<EpisodePage> Episodes(string bookId,int page)
         {
@@ -181,7 +181,7 @@ namespace BikaSharp.API.WebServices
         /// <summary>
         /// <see cref="Book"/> expansion method to get Episodes
         /// </summary>
-        /// <param name="page">index page</param>
+        /// <param name="page">page index </param>
         public static async Task Episodes(this Book book, int page)
         {
             EpisodePage res = await Episodes(book.Id, page);
@@ -226,6 +226,71 @@ namespace BikaSharp.API.WebServices
             }
         }
 
+        /// <summary>
+        /// Bika API : comics/{bookId}
+        /// </summary>
+        /// <remarks>
+        /// get the pictures by book id
+        /// </remarks>
+        /// <param name="bookId">book id from <see cref="Comic._id"/></param>
+        /// <param name="epsId">episode id from <see cref="Episode.order"/></param>
+        /// <param name="page">page index </param>
+        /// <returns></returns>
+        public static async Task<PicturePage> Pictures(string bookId,int epsId, int page)
+        {
+
+            BikaResponse<PicturePage> res = await GetAsync<PicturePage>($"comics/{bookId}/order/{epsId}/pages?page={page}");
+            return res.data;
+        }
+
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get Picture
+        /// </summary>
+        /// <param name="epsId">episode id from <see cref="Episode.order"/></param>
+        /// <param name="page">page index </param>
+        public static async Task Pictures(this Book book,int epsId, int page)
+        {
+            PicturePage res = await Pictures(book.Id, epsId, page);
+            book.SetPic(res);
+        }
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get next Picture
+        /// <remarks>
+        /// If you don't initialize <see cref="Pictures(this Book,int,int)"/>, it will be initialized automatically <br/>
+        /// and next will jump to the second page
+        /// </remarks>
+        /// </summary>
+        public static async Task NextPicture(this Book book)
+        {
+            if (book.PicIndex == 0)
+            {
+                await Pictures(book,1, 1);
+            }
+            else if (book.PicIndex < book.PicTotal)
+            {
+                PicturePage res = await Pictures(book.Id, book.EpIndex, book.PicIndex + 1);
+                book.SetPic(res);
+            }
+        }
+        /// <summary>
+        /// <see cref="Book"/> expansion method to get previous Picture
+        /// </summary>
+        /// <remarks>
+        /// If you don't initialize <see cref="Pictures(this Book,int,int)"/>, it will be initialized automatically <br/>
+        /// and will not jump to the previous page
+        /// </remarks>
+        public static async Task PrePicture(this Book book)
+        {
+            if (book.PicIndex == 0)
+            {
+                await Pictures(book,1, 1);
+            }
+            if (book.PicIndex > 2)
+            {
+                PicturePage res = await Pictures(book.Id, book.EpIndex, book.PicIndex + 1);
+                book.SetPic(res);
+            }
+        }
 
 
         public static string GetAppVersion() => _appVersion;
