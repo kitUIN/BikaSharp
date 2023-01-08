@@ -25,9 +25,11 @@
     <AndroidSigningStorePass></AndroidSigningStorePass>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="CantCommentException.cs" />
     <Compile Remove="CategoriesResponse.cs" />
     <Compile Remove="CategoryData.cs" />
     <Compile Remove="ComicInfo.cs" />
+    <Compile Remove="ComicReviewException.cs" />
     <Compile Remove="ComicsData.cs" />
     <Compile Remove="ComicsResponse.cs" />
     <Compile Remove="CommentsPage.cs" />
@@ -35,10 +37,15 @@
     <Compile Remove="Episode.cs" />
     <Compile Remove="EpisodeData.cs" />
     <Compile Remove="EpisodeResponse.cs" />
+    <Compile Remove="ExistedEmailException.cs" />
+    <Compile Remove="ExistedNameException.cs" />
+    <Compile Remove="LevelCommentException.cs" />
+    <Compile Remove="NotFoundException.cs" />
     <Compile Remove="PictureData.cs" />
     <Compile Remove="PicturePage.cs" />
     <Compile Remove="PictureResponse.cs" />
     <Compile Remove="ResponseBase.cs" />
+    <Compile Remove="SignInException.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.Extensions.Hosting" Version="2.2.0" />
@@ -95,9 +102,11 @@
   </Choose>
   <Import Project="..\BikaSharp.Shared\BikaSharp.Shared.projitems" Label="Shared" />
   <ItemGroup>
+    <_Globbed_Compile Remove="CantCommentException.cs" />
     <_Globbed_Compile Remove="CategoriesResponse.cs" />
     <_Globbed_Compile Remove="CategoryData.cs" />
     <_Globbed_Compile Remove="ComicInfo.cs" />
+    <_Globbed_Compile Remove="ComicReviewException.cs" />
     <_Globbed_Compile Remove="ComicsData.cs" />
     <_Globbed_Compile Remove="ComicsResponse.cs" />
     <_Globbed_Compile Remove="CommentsPage.cs" />
@@ -105,9 +114,14 @@
     <_Globbed_Compile Remove="Episode.cs" />
     <_Globbed_Compile Remove="EpisodeData.cs" />
     <_Globbed_Compile Remove="EpisodeResponse.cs" />
+    <_Globbed_Compile Remove="ExistedEmailException.cs" />
+    <_Globbed_Compile Remove="ExistedNameException.cs" />
+    <_Globbed_Compile Remove="LevelCommentException.cs" />
+    <_Globbed_Compile Remove="NotFoundException.cs" />
     <_Globbed_Compile Remove="PictureData.cs" />
     <_Globbed_Compile Remove="PicturePage.cs" />
     <_Globbed_Compile Remove="PictureResponse.cs" />
     <_Globbed_Compile Remove="ResponseBase.cs" />
+    <_Globbed_Compile Remove="SignInException.cs" />
   </ItemGroup>
 </Project>

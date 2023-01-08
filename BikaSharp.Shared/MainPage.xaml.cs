@@ -32,7 +32,7 @@ namespace BikaSharp
         }
 
 
-        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
+        private async Task TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
             var newTab = new muxc.TabViewItem();
             newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Document };
@@ -44,8 +44,8 @@ namespace BikaSharp
             frame.Navigate(typeof(HomePage));
 
             sender.TabItems.Add(newTab);
-
-
+            var res = await BikaClient.SignIn("kulujun","bala1234");
+            this.LogDebug(res.data.token);
         }
 
         // Remove the requested tab from the TabView

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Uno.Extensions.Hosting;
 
 using Uno.Extensions;
-using Serilog;
+
 using Windows.Storage;
 using System.IO;
 using System.Diagnostics;

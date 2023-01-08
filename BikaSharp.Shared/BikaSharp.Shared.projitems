@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)API\DataModels\Block\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)API\DataModels\Exception\UnAuthorizedException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)API\Utils\Gender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)API\Utils\ImageQuality.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)API\Utils\SortRule.cs" />

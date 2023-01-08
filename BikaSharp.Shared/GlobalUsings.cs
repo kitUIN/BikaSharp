@@ -11,4 +11,5 @@ global using System.Net;
 global using System.Security.Cryptography;
 global using BikaSharp.API.DataModels;
 global using BikaSharp.API.WebServices;
-
+global using BikaSharp.API.Exception;
+global using Serilog;
